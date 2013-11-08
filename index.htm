@@ -1,7 +1,37 @@
 <!DOCTYPE html>
 <html class="ocks-org do-not-copy">
-<meta charset="utf-8">
-<title>Sankey Diagram</title>
+<head>
+	<meta charset="utf-8">
+	<title>Sankey Diagram</title>
+
+	<style>
+
+		#chart {
+		  height: 100%;
+		}
+
+		.node rect {
+		  cursor: move;
+		  fill-opacity: .9;
+		  shape-rendering: crispEdges;
+		}
+
+		.node text {
+		  pointer-events: none;
+		  text-shadow: 0 1px 0 #fff;
+		}
+
+		.link {
+		  fill: none;
+		  stroke: #000;
+		  stroke-opacity: .2;
+		}
+
+		.link:hover {
+		  stroke-opacity: .5;
+		}
+	</style>
+</head>
 <body>
 
 <h1>Sankey Diagrams</h1>
@@ -13,8 +43,8 @@
 <script>
 
 var margin = {top: 1, right: 1, bottom: 6, left: 1},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 1280 - margin.left - margin.right,
+    height = 720 - margin.top - margin.bottom;
 
 var formatNumber = d3.format(",.0f"),
     format = function(d) { return formatNumber(d) + " TWh"; },
