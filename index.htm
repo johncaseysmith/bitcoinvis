@@ -2,7 +2,7 @@
 <html class="ocks-org do-not-copy">
 <head>
 	<meta charset="utf-8">
-	<title>Sankey Diagram</title>
+	<title>Bitcoin Transactions</title>
 
 	<style>
 
@@ -36,7 +36,9 @@
 
 <h1>Bitcoin Transactions</h1>
 
-<p id="chart">
+<p>Each node represents an address. They are labeled with the last six digits of the address. The lines represent transactions between nodes. Nodes on the left are sending bitcoins to nodes on the right.
+
+<p id="chart"></p>
 
 <script src="http://d3js.org/d3.v2.min.js?2.9.1"></script>
 <script src="sankey.js"></script>
@@ -47,7 +49,7 @@ var margin = {top: 1, right: 1, bottom: 6, left: 1},
     height = 720 - margin.top - margin.bottom;
 
 var formatNumber = d3.format(",.0f"),
-    format = function(d) { return formatNumber(d) + " TWh"; },
+    format = function(d) { return "Transaction ammount: $" + formatNumber(d); },
     color = d3.scale.category20();
 
 var svg = d3.select("#chart").append("svg")
@@ -118,3 +120,6 @@ d3.json("energy.json", function(energy) {
 });
 
 </script>
+
+</body>
+</html>
