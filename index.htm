@@ -24,7 +24,7 @@
 		.link {
 		  fill: none;
 		  stroke: #000;
-		  stroke-opacity: .2;
+		  stroke-opacity: .3;
 		}
 
 		.link:hover {
@@ -71,6 +71,8 @@ d3.json("energy.json", function(energy) {
       .nodes(energy.nodes)
       .links(energy.links)
       .layout(32);
+	  
+  var current = "saUrDZ";
 
   var link = svg.append("g").selectAll(".link")
       .data(energy.links)
@@ -78,6 +80,15 @@ d3.json("energy.json", function(energy) {
       .attr("class", "link")
       .attr("d", path)
       .style("stroke-width", function(d) { return Math.max(1, d.dy); })
+	  .style("stroke", function(d) {
+		if (d.source.name === current) {
+		  return d3.rgb(172,78,78);
+		} else if (d.target.name === current) {
+		  return d3.rgb(55,192,120);
+		} else {
+		  return d3.rgb(190,190,190);
+		}
+	  })
       .sort(function(a, b) { return b.dy - a.dy; });
 
   link.append("title")
