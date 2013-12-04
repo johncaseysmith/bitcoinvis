@@ -1,55 +1,23 @@
 <!DOCTYPE html>
 <html class="ocks-org do-not-copy">
-<head>
-	<meta charset="utf-8">
-	<title>Bitcoin Transactions</title>
-
-	<style>
-
-		#chart {
-		  height: 100%;
-		}
-
-		.node rect {
-		  cursor: move;
-		  fill-opacity: .9;
-		  shape-rendering: crispEdges;
-		}
-
-		.node text {
-		  pointer-events: none;
-		  text-shadow: 0 1px 0 #fff;
-		}
-
-		.link {
-		  fill: none;
-		  stroke: #000;
-		  stroke-opacity: .2;
-		}
-
-		.link:hover {
-		  stroke-opacity: .5;
-		}
-	</style>
-</head>
+<meta charset="utf-8">
+<title>Sankey Diagram</title>
 <body>
 
-<h1>Bitcoin Transactions</h1>
+<h1>Sankey Diagrams</h1>
 
-<p>Each node represents an address. They are labeled with the last six digits of the address. The lines represent transactions between nodes. Nodes on the left are sending bitcoins to nodes on the right.
-
-<p id="chart"></p>
+<p id="chart">
 
 <script src="http://d3js.org/d3.v2.min.js?2.9.1"></script>
 <script src="sankey.js"></script>
 <script>
 
 var margin = {top: 1, right: 1, bottom: 6, left: 1},
-    width = 1280 - margin.left - margin.right,
-    height = 720 - margin.top - margin.bottom;
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
 var formatNumber = d3.format(",.0f"),
-    format = function(d) { return "Transaction amount: $" + formatNumber(d); },
+    format = function(d) { return formatNumber(d) + " TWh"; },
     color = d3.scale.category20();
 
 var svg = d3.select("#chart").append("svg")
@@ -120,32 +88,3 @@ d3.json("energy.json", function(energy) {
 });
 
 </script>
-
-<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	
-	<!--CASEY DO-->
-	
-	<script type="text/javascript">
-	
-	var d3Globals = function() {
-		var width = 1380,
-		height = 740,
-		cellColorA = '#EAEAEA',
-		cellColorB = '#FFFFFF';
-	}
-	
-	function drawGraphs(){
-		var outerRadius = 200;
-		var innerRadius = 0;
-		var pie = d3.layout.pie();
-		var color = d3.scale.category10();
-		var arc = d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius);
-		
-		
-	}
-	
-
-	</script>
-</body>
-</html>
