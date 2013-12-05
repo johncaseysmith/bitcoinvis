@@ -50,29 +50,15 @@
 
 <script src="vis.js"></script>
 
-<script type="application/javascript">
-
-var myJSON;
+<script type="text/javascript">
 
 $("#btn").click(function() {
+
 	var currentAddress = document.getElementById('txt').value;
 	
-	$.ajax({
-		url: "http://blockchain.info/rawaddr/" + currentAddress,
-		dataType: 'text json',
-		data: {},
-		success: function(data) {
-			$('div#result').text("Address: " + data);
-		},
-		error: function(xOptions, textStatus) {
-			alert(textStatus + ". Something went wrong with address " + xOptions);
-		},
-		complete: function() {
-			console.log("Finished...");
-		}
-	});
+	var data = $.get("http://blockchain.info/address/" + currentAddress);
 	
-	//myJSON = getTransactions(currentAddress);
+	console.log(data);
 	
 	
 });
