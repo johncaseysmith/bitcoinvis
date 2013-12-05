@@ -56,7 +56,7 @@ $("#btn").click(function() {
 	var currentAddress = document.getElementById('txt').value;
 	
 	$.ajax({
-		url: "http://blockchain.info/address/" + currentAddress + "?format=json",
+		url: "http://blockchain.info/address/" + currentAddress + "?cors=true",
 		dataType: 'text json',
 		data: {},
 		success: function(data) {
