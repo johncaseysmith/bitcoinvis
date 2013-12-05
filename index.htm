@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="ocks-org do-not-copy">
 <head>
-	<meta charset="utf-8">
+	<meta charset="utf-8" />
 	<title>Bitcoin Transactions</title>
 
 	<style>
@@ -36,116 +36,58 @@
 
 <h1>Bitcoin Transactions</h1>
 
-<p>Each node represents an address. They are labeled with the last six digits of the address. The lines represent transactions between nodes. Nodes on the left are sending bitcoins to nodes on the right.
+<p>Each node represents an address. They are labeled with the last six digits of the address. The lines represent transactions between nodes. Nodes on the left are sending bitcoins to nodes on the right.</p>
 
 <p id="chart"></p>
 
+<input type="button" value="get data" id="btn" />
+<input type="text" value="1AJbsFZ64EpEfS5UAjAfcUG8pH8Jn3rn1F" id="txt" />
+<div id="result">TEXT</div>
+
 <script src="http://d3js.org/d3.v2.min.js?2.9.1"></script>
 <script src="sankey.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script src="vis.js"></script>
+
 <script>
 
-var margin = {top: 1, right: 1, bottom: 6, left: 1},
-    width = 1280 - margin.left - margin.right,
-    height = 720 - margin.top - margin.bottom;
+var myJSON;
 
-var formatNumber = d3.format(",.0f"),
-    format = function(d) { return "Transaction amount: $" + formatNumber(d); },
-    color = d3.scale.category20();
+<!-- Resources: http://stackoverflow.com/questions/15008867/odd-behavior-of-my-jquery-shorthand-get-ajax-method-and-its-callback-funct -->
 
-var svg = d3.select("#chart").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+$.get($(this).attr("href"), function(){
 
-var sankey = d3.sankey()
-    .nodeWidth(15)
-    .nodePadding(10)
-    .size([width, height]);
+	$("#btn").click(function() {
+		reference = document.getElementById('txt').value;
+		myJSON = $.getJSON('http://blockchain.info/address/' + reference + '?format=json', function() { console.log("Success!"); })
+			.done(function() { console.log( "second success" ); })
+			.fail(function() { console.log( "error" ); })
+			.always(function() { console.log( "complete" ); });
+		
+		$('div#result').text("Address: " + Object.keys(myJSON));
+		console.log("It worked? " + myJSON.address);
+	});
 
-var path = sankey.link();
+	$(document).ajaxError(function(event, request, settings) {
+		alert( "Error requesting page " + settings.url);
+	});
 
-d3.json("energy.json", function(energy) {
-
-  sankey
-      .nodes(energy.nodes)
-      .links(energy.links)
-      .layout(32);
-	  
-  var current = "saUrDZ";
-
-  var link = svg.append("g").selectAll(".link")
-      .data(energy.links)
-    .enter().append("path")
-      .attr("class", "link")
-      .attr("d", path)
-      .style("stroke-width", function(d) { return Math.max(1, d.dy); })
-	  .style("stroke", function(d) {
-		if (d.source.name === current) {
-		  return d3.rgb(172,78,78);
-		} else if (d.target.name === current) {
-		  return d3.rgb(55,192,120);
-		} else {
-		  return d3.rgb(190,190,190);
-		}
-	  })
-      .sort(function(a, b) { return b.dy - a.dy; });
-
-  link.append("title")
-      .text(function(d) { return d.source.name + " ? " + d.target.name + "\n" + format(d.value); });
-
-  var node = svg.append("g").selectAll(".node")
-      .data(energy.nodes)
-    .enter().append("g")
-      .attr("class", "node")
-      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-    .call(d3.behavior.drag()
-      .origin(function(d) { return d; })
-      .on("dragstart", function() { this.parentNode.appendChild(this); })
-      .on("drag", dragmove));
-
-  node.append("rect")
-      .attr("height", function(d) { return d.dy; })
-      .attr("width", sankey.nodeWidth())
-      .style("fill", function(d) { return d.color = color(d.name.replace(/ .*/, "")); })
-      .style("stroke", function(d) { return d3.rgb(d.color).darker(2); })
-    .append("title")
-      .text(function(d) { return d.name + "\n" + format(d.value); });
-
-  node.append("text")
-      .attr("x", -6)
-      .attr("y", function(d) { return d.dy / 2; })
-      .attr("dy", ".35em")
-      .attr("text-anchor", "end")
-      .attr("transform", null)
-      .text(function(d) { return d.name; })
-    .filter(function(d) { return d.x < width / 2; })
-      .attr("x", 6 + sankey.nodeWidth())
-      .attr("text-anchor", "start");
-
-  function dragmove(d) {
-    d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
-    sankey.relayout();
-    link.attr("d", path);
-  }
-});
+}, "html");
 
 </script>
+	
+<!--CASEY DO-->
 
-<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	
-	<!--CASEY DO-->
-	
-	<script type="text/javascript">
-	
+<script type="text/javascript">
+
 	var d3Globals = function() {
 		var width = 1380,
 		height = 740,
 		cellColorA = '#EAEAEA',
 		cellColorB = '#FFFFFF';
 	}
-	
+
 	function drawGraphs(){
 		var outerRadius = 200;
 		var innerRadius = 0;
@@ -155,8 +97,8 @@ d3.json("energy.json", function(energy) {
 		
 		
 	}
-	
 
-	</script>
+
+</script>
 </body>
 </html>
