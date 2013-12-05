@@ -58,7 +58,7 @@ $("#btn").click(function() {
 	// Make the actual CORS request.
 	function makeCorsRequest() {
 	  // All HTML5 Rocks properties support CORS.
-	  var url = 'http://blockchain.info/address/' + currentAddress + '?cors=true';
+	  var url = 'http://blockchain.info/address/' + currentAddress + '&cors=true';
 
 	  var xhr = createCORSRequest('GET', url);
 	  if (!xhr) {
