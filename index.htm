@@ -1,40 +1,11 @@
 <!DOCTYPE html>
 <html class="ocks-org do-not-copy">
-<head>
-	<meta charset="utf-8">
-	<title>Bitcoin Transactions</title>
+<meta charset="utf-8">
+<title>Sankey Diagram</title>
 
-	<style>
-
-		#chart {
-		  height: 100%;
-		}
-
-		.node rect {
-		  cursor: move;
-		  fill-opacity: .9;
-		  shape-rendering: crispEdges;
-		}
-
-		.node text {
-		  pointer-events: none;
-		  text-shadow: 0 1px 0 #fff;
-		}
-
-		.link {
-		  fill: none;
-		  stroke: #000;
-		  stroke-opacity: .3;
-		}
-
-		.link:hover {
-		  stroke-opacity: .5;
-		}
-	</style>
-</head>
 <body>
 
-<h1>Bitcoin Transactions</h1>
+<h1>Sankey Diagrams</h1>
 
 <p>Each node represents an address. They are labeled with the last six digits of the address. The lines represent transactions between nodes. Nodes on the left are sending bitcoins to nodes on the right.
 
@@ -45,11 +16,11 @@
 <script>
 
 var margin = {top: 1, right: 1, bottom: 6, left: 1},
-    width = 1280 - margin.left - margin.right,
-    height = 720 - margin.top - margin.bottom;
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
 var formatNumber = d3.format(",.0f"),
-    format = function(d) { return "Transaction ammount: $" + formatNumber(d); },
+    format = function(d) { return formatNumber(d) + " TWh"; },
     color = d3.scale.category20();
 
 var svg = d3.select("#chart").append("svg")
@@ -71,7 +42,7 @@ d3.json("energy.json", function(energy) {
       .nodes(energy.nodes)
       .links(energy.links)
       .layout(32);
-	  
+          
   var current = "saUrDZ";
 
   var link = svg.append("g").selectAll(".link")
@@ -80,15 +51,15 @@ d3.json("energy.json", function(energy) {
       .attr("class", "link")
       .attr("d", path)
       .style("stroke-width", function(d) { return Math.max(1, d.dy); })
-	  .style("stroke", function(d) {
-		if (d.source.name === current) {
-		  return d3.rgb(172,78,78);
-		} else if (d.target.name === current) {
-		  return d3.rgb(55,192,120);
-		} else {
-		  return d3.rgb(190,190,190);
-		}
-	  })
+          .style("stroke", function(d) {
+                if (d.source.name === current) {
+                  return d3.rgb(172,78,78);
+                } else if (d.target.name === current) {
+                  return d3.rgb(55,192,120);
+                } else {
+                  return d3.rgb(190,190,190);
+                }
+          })
       .sort(function(a, b) { return b.dy - a.dy; });
 
   link.append("title")
@@ -131,6 +102,7 @@ d3.json("energy.json", function(energy) {
 });
 
 </script>
+
 
 </body>
 </html>
