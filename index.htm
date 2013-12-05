@@ -66,6 +66,9 @@ $("#btn").click(function() {
 		},
 		error: function(xOptions, textStatus) {
 			alert(textStatus + ". Something went wrong with address " + xOptions);
+		},
+		complete: function() {
+			console.log("Finished...");
 		}
 	});
 	
