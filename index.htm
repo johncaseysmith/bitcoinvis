@@ -50,16 +50,26 @@
 
 <script src="vis.js"></script>
 
-<script type="text/javascript">
+<script type="application/json">
 
 $("#btn").click(function() {
 
 	var currentAddress = document.getElementById('txt').value;
 	
-	var data = $.get("http://blockchain.info/address/" + currentAddress);
-	
-	console.log(data);
-	
+	$.ajax({
+		url: "http://blockchain.info/address/" + currentAddress + "?format=json",
+		dataType: 'text json',
+		data: {},
+		success: function(data) {
+			$('div#result').text("Address: " + data);
+		},
+		error: function(xOptions, textStatus) {
+			alert(textStatus + ". Something went wrong with address " + xOptions);
+		},
+		complete: function() {
+			console.log("Finished...");
+		}
+	});
 	
 });
 
