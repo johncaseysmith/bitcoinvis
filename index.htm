@@ -46,28 +46,33 @@
 
 <script src="http://d3js.org/d3.v2.min.js?2.9.1"></script>
 <script src="sankey.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 
 <script src="vis.js"></script>
 
-<script>
+<script type="application/javascript">
 
 var myJSON;
 
 $("#btn").click(function() {
-	reference = document.getElementById('txt').value;
+	var currentAddress = document.getElementById('txt').value;
 	
-	myJSON = $.getJSON('http://blockchain.info/rawaddr/' + reference + "?cors=true", function() { console.log("Success!"); })
-		.done(function() { console.log( "second success" ); })
-		.fail(function() { console.log( "error" ); })
-		.always(function() { console.log( "complete" ); });
+	$.ajax({
+		url: "http://blockchain.info/rawaddr/" + currentAddress,
+		dataType: 'jsonp',
+		data: {},
+		success: function(data) {
+			$('div#result').text("Address: " + data.address);
+		},
+		"error": function(xOptions, textStatus) {
+			alert(textStatus + ". Something went wrong with address " + xOptions);
+		},
+		jsonpCallback: 'mycallback'
+	});
 	
-	$('div#result').text("Address: " + Object.keys(myJSON));
-	console.log("It worked? " + myJSON.address);
-});
-
-$(document).ajaxError(function(event, request, settings) {
-	alert( "Error requesting page " + settings.url);
+	//myJSON = getTransactions(currentAddress);
+	
+	
 });
 
 </script>
