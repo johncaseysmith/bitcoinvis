@@ -59,15 +59,14 @@ $("#btn").click(function() {
 	
 	$.ajax({
 		url: "http://blockchain.info/rawaddr/" + currentAddress,
-		dataType: 'jsonp',
+		dataType: 'text json',
 		data: {},
 		success: function(data) {
-			$('div#result').text("Address: " + data.address);
+			$('div#result').text("Address: " + data);
 		},
 		"error": function(xOptions, textStatus) {
 			alert(textStatus + ". Something went wrong with address " + xOptions);
-		},
-		jsonpCallback: 'mycallback'
+		}
 	});
 	
 	//myJSON = getTransactions(currentAddress);
