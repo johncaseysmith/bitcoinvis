@@ -54,26 +54,21 @@
 
 var myJSON;
 
-<!-- Resources: http://stackoverflow.com/questions/15008867/odd-behavior-of-my-jquery-shorthand-get-ajax-method-and-its-callback-funct -->
+$("#btn").click(function() {
+	reference = document.getElementById('txt').value;
+	
+	myJSON = $.getJSON('http://blockchain.info/rawaddr/' + reference + "?cors=true", function() { console.log("Success!"); })
+		.done(function() { console.log( "second success" ); })
+		.fail(function() { console.log( "error" ); })
+		.always(function() { console.log( "complete" ); });
+	
+	$('div#result').text("Address: " + Object.keys(myJSON));
+	console.log("It worked? " + myJSON.address);
+});
 
-$.get($(this).attr("href"), function(){
-
-	$("#btn").click(function() {
-		reference = document.getElementById('txt').value;
-		myJSON = $.getJSON('http://blockchain.info/address/' + reference + '?format=json', function() { console.log("Success!"); })
-			.done(function() { console.log( "second success" ); })
-			.fail(function() { console.log( "error" ); })
-			.always(function() { console.log( "complete" ); });
-		
-		$('div#result').text("Address: " + Object.keys(myJSON));
-		console.log("It worked? " + myJSON.address);
-	});
-
-	$(document).ajaxError(function(event, request, settings) {
-		alert( "Error requesting page " + settings.url);
-	});
-
-}, "html");
+$(document).ajaxError(function(event, request, settings) {
+	alert( "Error requesting page " + settings.url);
+});
 
 </script>
 	
