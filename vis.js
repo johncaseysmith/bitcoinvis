@@ -58,8 +58,9 @@ d3.json("energy.json", function(energy) {
       .on("dragstart", function() { 
 	    d3.event.sourceEvent.stopPropagation();
 		this.parentNode.appendChild(this); })
-      .on("drag", dragmove)
-	  .on("click", openNewAddress));
+      .on("drag", dragmove));
+	  
+  node.on("click", openNewAddress);
 
   node.append("rect")
       .attr("height", function(d) { return d.dy; })
