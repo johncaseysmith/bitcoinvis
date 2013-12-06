@@ -46,7 +46,7 @@ d3.json("json/1FDcvSGq2w9uQi5UWzH6gKZWoPEfChjqPx.json", function(energy) {
       .sort(function(a, b) { return b.dy - a.dy; });
 
   link.append("title")
-      .text(function(d) { return d.source.name + " -> " + d.target.name + "\n" + format(d.value); });
+      .text(function(d) { return d.source.name + " -> " + d.target.name + "\n" + "BTC " + (d.value / 100000); });
 
   var node = svg.append("g").selectAll(".node")
       .data(energy.nodes)
