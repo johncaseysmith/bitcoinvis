@@ -1,38 +1,54 @@
 <!DOCTYPE html>
+<!--Pie chart source by enjalot: https://gist.github.com/enjalot/1203641-->
+<!--Pie chart source by mbostock: https://github.com/mbostock/d3/wiki/Gallery-->
 <html>
   <head>    
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>Testing Pie Chart</title>
-    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.1.3"></script>
-    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.geom.js?2.1.3"></script>
-    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.layout.js?2.1.3"></script>
+	
+	<script src="http://d3js.org/d3.v2.min.js?2.9.1"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
  
     <style type="text/css">
         .slice text {
             font-size: 16pt;
             font-family: Arial;
         }   
+		div.tooltip {
+			position: absolute;
+			text-align: center;
+			font: 12px sans-serif;
+			background: none;
+			border: none;
+			border-radius: 8px;
+			pointer-events: none;
+		}
     </style>
   </head>
   <body>
     <script type="text/javascript">
- 
+	d3.json("json/1BQRGabo3v2fRwE9bJj2wSDemLg6eGtQMD.json", function(x) {
+	
+	data
+	
+	
+	document.write("Something" + data);
+	
+	w = 300,
     h = 300,                            //height
     r = 100,                            //radius
     color = d3.scale.category20c();     //builtin range of colors
+	var current;						//current slice
 
-var data = [{"label":"a", "value":0}];
+//My Code - Casey Tisdel
 
-var currentIndex = 3;
+	var dataSum = 0;
 
-
-for (var i = 0;i<5;i++){
-	if(i !=currentIndex){
-		data.push({"label":i, "value":(i+1)*2});
-	}
+for(var i = 0; i<data.links.length-1; i++){
+	dataSum+= data.links[i].value;
 }
 
-    
+    //Their code
     var vis = d3.select("body")
         .append("svg:svg")              //create the SVG element inside the <body>
         .data([data])                   //associate our data with the document
@@ -51,22 +67,46 @@ for (var i = 0;i<5;i++){
         .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties) 
         .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
             .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
-                .attr("class", "slice");    //allow us to style things in the slices (like text)
+                .attr("class", "slice")    //allow us to style things in the slices (like text)
+                .on("mouseover", mouseover)
+				.on("mousemove", mousemove)
+				.on("mouseout", mouseout);
  
         arcs.append("svg:path")
                 .attr("fill", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
                 .attr("d", arc);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
- 
-        arcs.append("svg:text")                                     //add a label to each slice
-                .attr("transform", function(d) {                    //set the label's origin to the center of the arc
-                //we have to make sure to set these before calling arc.centroid
-                d.innerRadius = 0;
-                d.outerRadius = r;
-                return "translate(" + arc.centroid(d) + ")";        //this gives us a pair of coordinates like [50, 50]
-            })
-            .attr("text-anchor", "middle")                          //center the text on it's origin
-            .text(function(d, i) { return data[i].label; });        //get the label from our original data array
-        
+			
+			
+			
+		var div = d3.select("body").append("div")
+		.attr("class", "tooltip")
+		.style("opacity", 1e-6);
+	
+	//My Code
+	function mouseover(d,i) {
+	var format = d3.format('3%');
+    var percent = format(d.value/dataSum);
+	
+	div.transition()
+		.text("Label: " + data.label[i] + ", Value: " + d.value + ", Percentage: " + percent)
+		.duration(350)
+		.style("opacity", 1);
+	}
+	
+	//Their code
+	function mousemove() {
+	
+	div
+		.style("left", (d3.event.pageX +10) + "px")
+		.style("top", (d3.event.pageY -10) + "px");
+	}
+
+	function mouseout() {
+		div.transition()
+		.duration(500)
+		.style("opacity", 1e-6);
+	}
+ }); 
     </script>
   </body>
 </html>
