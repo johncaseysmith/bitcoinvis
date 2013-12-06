@@ -2,10 +2,29 @@
   height: 100%;
 }
 
+/*
+	changed opacity for most of these. also added the bold text on hover.
+	original code can be found at
+	https://github.com/johncaseysmith/bitcoinvis/commit/8aee8c1b43ee6d07881b763c443db82cd3accf6e#diff-fd491768bbe8b2f208d6e5d82758228a
+	beginning at line 3
+*/
+
 .node rect {
   cursor: move;
-  fill-opacity: .9;
+  fill-opacity: .5;
   shape-rendering: crispEdges;
+}
+
+.node rect:hover {
+	fill-opacity: .9;
+}
+
+.node rect:hover + text {
+	font-weight: bold;
+}
+
+.node rect:active{
+	fill-opacity: .0;
 }
 
 .node text {

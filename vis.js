@@ -1,10 +1,18 @@
+// Modified by Casey Smith
+// Original base code can be found at
+// https://github.com/johncaseysmith/bitcoinvis/commit/ddc6371850898e58a24f9e954696c46c5e51ad08#diff-fd491768bbe8b2f208d6e5d82758228a
+// beginning at line 13
+
+// getting the current address from the doc title
 var docTitle = document.title;
 var currentAddress = docTitle.split(" ")[2];
 
+// set the width to fit blockchain.info
 var margin = {top: 1, right: 1, bottom: 6, left: 1},
     width = 1180 - margin.left - margin.right,
     height = 720 - margin.top - margin.bottom;
 
+// dead code, but might be useful later
 var formatNumber = d3.format(",.0f"),
     format = function(d) { return "Transaction amount: $" + formatNumber(d); },
     color = d3.scale.category20();
@@ -15,13 +23,17 @@ var svg = d3.select("#chart").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+	
+// changed node width
 var sankey = d3.sankey()
-    .nodeWidth(15)
+    .nodeWidth(20)
     .nodePadding(10)
     .size([width, height]);
 
 var path = sankey.link();
 
+
+// grab the correct json file from the folder
 d3.json("json/" + currentAddress + ".json", function(energy) {
 
   sankey
@@ -36,6 +48,7 @@ d3.json("json/" + currentAddress + ".json", function(energy) {
       .attr("d", path)
       .style("stroke-width", function(d) { return Math.max(1, d.dy); })
 	  .style("stroke", function(d) {
+		// change the color of the stroke based on whether the money flows to or from the current address
 		if (d.source.name === currentAddress) {
 		  return d3.rgb(172,78,78);
 		} else if (d.target.name === currentAddress) {
@@ -47,7 +60,7 @@ d3.json("json/" + currentAddress + ".json", function(energy) {
       .sort(function(a, b) { return b.dy - a.dy; });
 
   link.append("title")
-      .text(function(d) { return d.source.name + " -> " + d.target.name + "\n" + "BTC " + d.value; });
+      .text(function(d) { return d.source.name + " -> " + d.target.name + "\n" + "BTC " + d.value; }); // changed the way it's displayed
 
   var node = svg.append("g").selectAll(".node")
       .data(energy.nodes)
@@ -57,9 +70,10 @@ d3.json("json/" + currentAddress + ".json", function(energy) {
     .call(d3.behavior.drag()
       .origin(function(d) { return d; })
       .on("dragstart", function() { 
-	    d3.event.sourceEvent.stopPropagation();
+	    d3.event.sourceEvent.stopPropagation(); // don't read click if movement starts
 		this.parentNode.appendChild(this); })
-      .on("drag", dragmove));
+      .on("drag", dragmove))
+	.on("click", clicknode); // added on clicks for nodes
 
   node.append("rect")
       .attr("height", function(d) { return d.dy; })
@@ -67,7 +81,7 @@ d3.json("json/" + currentAddress + ".json", function(energy) {
       .style("fill", function(d) { return d.color = color(d.name.replace(/ .*/, "")); })
       .style("stroke", function(d) { return d3.rgb(d.color).darker(2); })
     .append("title")
-      .text(function(d) { return d.name + "\n" + format(d.value); });
+      .text(function(d) { return d.name + "\n" + "BTC " + d.value; }); // changed the way it's displayed
 
   node.append("text")
       .attr("x", -6)
@@ -86,8 +100,8 @@ d3.json("json/" + currentAddress + ".json", function(energy) {
     link.attr("d", path);
   }
   
-  d3.selectAll('.node').on("click", function(d) {
-    console.log(clickedNode);
-    var clickedNode = this;
-  })
+  // added on clicks for nodes
+  function clicknode(d) {
+    window.location = d.name + ".htm";
+  }
 });
