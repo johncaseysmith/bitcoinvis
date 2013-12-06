@@ -19,14 +19,14 @@ var sankey = d3.sankey()
 
 var path = sankey.link();
 
-d3.json("energy.json", function(energy) {
+d3.json("1FDcvSGq2w9uQi5UWzH6gKZWoPEfChjqPx.json", function(energy) {
 
   sankey
       .nodes(energy.nodes)
       .links(energy.links)
       .layout(32);
 	  
-  var current = "saUrDZ";
+  var current = "jqPx";
 
   var link = svg.append("g").selectAll(".link")
       .data(energy.links)
@@ -86,7 +86,7 @@ d3.json("energy.json", function(energy) {
   }
   
   d3.selectAll('.node').on("click", function(d) {
+    console.log(clickedNode);
     var clickedNode = this;
-    console.log(clickedNode.text);
   })
 });
