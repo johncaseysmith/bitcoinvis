@@ -1,34 +1,4 @@
-<!DOCTYPE html>
-<!--Pie chart source by enjalot: https://gist.github.com/enjalot/1203641-->
-<!--Pie chart source by mbostock: https://github.com/mbostock/d3/wiki/Gallery-->
-<html>
-  <head>    
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>Testing Pie Chart</title>
-	
-	<script src="http://d3js.org/d3.v2.min.js?2.9.1"></script>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
- 
-    <style type="text/css">
-        .slice text {
-            font-size: 16pt;
-            font-family: Arial;
-        }   
-		div.tooltip {
-			position: absolute;
-			text-align: center;
-			font: 12px sans-serif;
-			background: none;
-			border: none;
-			border-radius: 8px;
-			pointer-events: none;
-		}
-    </style>
-  </head>
-  <body>
-    <script type="text/javascript">
-	
-	data = [{"source":1,"target":1,"value":200}];
+data = [{"source":1,"target":1,"value":200}];
 	
 	d3.json("json/1ARrjUXpovmocFwBjatYovy2EonwxWhzRR.json", function(energy) {
 	
@@ -121,6 +91,3 @@ for(var i = 0; i<data.length-1; i++){
 	}
 	
  }); 
-    </script>
-  </body>
-</html>
