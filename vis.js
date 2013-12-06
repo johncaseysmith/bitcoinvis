@@ -87,6 +87,6 @@ d3.json("energy.json", function(energy) {
   
   d3.selectAll('.node').on("click", function(d) {
     var clickedNode = this;
-    console.log(clickedNode.name);
+    console.log(clickedNode.title);
   })
 });
