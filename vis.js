@@ -55,8 +55,11 @@ d3.json("energy.json", function(energy) {
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
     .call(d3.behavior.drag()
       .origin(function(d) { return d; })
-      .on("dragstart", function() { this.parentNode.appendChild(this); })
-      .on("drag", dragmove));
+      .on("dragstart", function() { 
+	    this.parentNode.appendChild(this);
+		d3.event.sourceEvent.stopPropagation(); })
+      .on("drag", dragmove)
+	  .on("click", openNewAddress));
 
   node.append("rect")
       .attr("height", function(d) { return d.dy; })
@@ -81,5 +84,9 @@ d3.json("energy.json", function(energy) {
     d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
     sankey.relayout();
     link.attr("d", path);
+  }
+  
+  function openNewAddress(d) {
+    console.log("open new address");
   }
 });
