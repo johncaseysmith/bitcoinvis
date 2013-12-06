@@ -2,46 +2,19 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Bitcoin Transactions</title>
-
-	<style>
-
-		#chart {
-		  height: 100%;
-		}
-
-		.node rect {
-		  cursor: move;
-		  fill-opacity: .9;
-		  shape-rendering: crispEdges;
-		}
-
-		.node text {
-		  pointer-events: none;
-		  text-shadow: 0 1px 0 #fff;
-		}
-
-		.link {
-		  fill: none;
-		  stroke: #000;
-		  stroke-opacity: .2;
-		}
-
-		.link:hover {
-		  stroke-opacity: .5;
-		}
-	</style>
+	
 </head>
 <body>
 
 <h1>Bitcoin Transactions</h1>
 
-<p>Each node represents an address. They are labeled with the last six digits of the address. The lines represent transactions between nodes. Nodes on the left are sending bitcoins to nodes on the right.</p>
+<p>Each node represents an address. The lines represent transactions between nodes. Nodes on the left are sending bitcoins to nodes on the right.</p>
 
 <p id="chart"></p>
 
 <script src="http://d3js.org/d3.v2.min.js?2.9.1"></script>
 <script src="sankey.js"></script>
-
+<link rel="stylesheet" type="text/css" href="style.css">
 <script src="vis.js"></script>
 	
 <!--CASEY DO-->

@@ -1,5 +1,8 @@
+var docTitle = document.title;
+var currentAddress = docTitle.split(" ")[2];
+
 var margin = {top: 1, right: 1, bottom: 6, left: 1},
-    width = 1280 - margin.left - margin.right,
+    width = 1180 - margin.left - margin.right,
     height = 720 - margin.top - margin.bottom;
 
 var formatNumber = d3.format(",.0f"),
@@ -19,14 +22,12 @@ var sankey = d3.sankey()
 
 var path = sankey.link();
 
-d3.json("json/1FDcvSGq2w9uQi5UWzH6gKZWoPEfChjqPx.json", function(energy) {
+d3.json("json/" + currentAddress + ".json", function(energy) {
 
   sankey
       .nodes(energy.nodes)
       .links(energy.links)
       .layout(32);
-	  
-  var current = "jqPx";
 
   var link = svg.append("g").selectAll(".link")
       .data(energy.links)
@@ -35,9 +36,9 @@ d3.json("json/1FDcvSGq2w9uQi5UWzH6gKZWoPEfChjqPx.json", function(energy) {
       .attr("d", path)
       .style("stroke-width", function(d) { return Math.max(1, d.dy); })
 	  .style("stroke", function(d) {
-		if (d.source.name === current) {
+		if (d.source.name === currentAddress) {
 		  return d3.rgb(172,78,78);
-		} else if (d.target.name === current) {
+		} else if (d.target.name === currentAddress) {
 		  return d3.rgb(55,192,120);
 		} else {
 		  return d3.rgb(190,190,190);
@@ -46,7 +47,7 @@ d3.json("json/1FDcvSGq2w9uQi5UWzH6gKZWoPEfChjqPx.json", function(energy) {
       .sort(function(a, b) { return b.dy - a.dy; });
 
   link.append("title")
-      .text(function(d) { return d.source.name + " -> " + d.target.name + "\n" + "BTC " + (d.value / 100000); });
+      .text(function(d) { return d.source.name + " -> " + d.target.name + "\n" + "BTC " + d.value; });
 
   var node = svg.append("g").selectAll(".node")
       .data(energy.nodes)
