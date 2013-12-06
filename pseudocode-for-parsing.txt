@@ -1,0 +1,113 @@
+Transactions:
+	myJson.txs[]
+Inputs per transaction:
+	myJson.txs[i].inputs[]
+Input address:
+	myJson.txs[i].inputs[a].addr
+Input value:
+	myJson.txs[i].inputs[a].value
+Outputs per transaction:
+	myJson.txs[i].out[]
+Output address:
+	myJson.txs[i].out[a].addr
+Output value:
+	myJson.txs[i].out[a].value
+
+
+
+
+Look at all transactions.
+Look at inputs:
+FOR EACH:
+	If not curAddr && not already present, add to InputNodes[].
+	Generate its ratio based on value.
+	Create Link in Links[] to each output and ratio*value.
+Look at outputs:
+FOR EACH:
+	If not curAddr && not already present, add to OutputNodes[].
+
+Compare InputNodes[] and OutputNodes[].
+If there is a match,
+	Traverse Links[] for that addr as a target.
+	Alter both OutputNodes[i] and Links[b].target to same new address.
+
+Create new Nodes[]. Nodes[0] = currAddr.
+Push InputNodes[] and OutputNodes[] into Nodes[].
+
+TIME:
+One traversal of all inputs/outputs from all transactions.
+Second traversal comparing InputNodes[] and OutputNodes[].
+Third traversal of Links[] for that addr.
+
+
+
+
+
+
+
+
+
+OLD WAY (wouldn't work)
+
+
+
+
+
+
+
+
+
+
+
+Transactions:
+	myJson.txs[]
+Inputs per transaction:
+	myJson.txs[i].inputs[]
+Input address:
+	myJson.txs[i].inputs[a].addr
+Input value:
+	myJson.txs[i].inputs[a].value
+Outputs per transaction:
+	myJson.txs[i].out[]
+Output address:
+	myJson.txs[i].out[a].addr
+Output value:
+	myJson.txs[i].out[a].value
+
+STEPS:
+
+Create three arrays:
+	InputNodes[addrNames]
+	OutputNodes[addrNames]
+	Links[sourceNames, targetNames, values]
+
+Traverse all 50 transactions:
+	For all addresses in the inputs array:
+		If this != currentAddr,
+			If this not already in InputNodes[],
+				Push to InputNodes[addr].
+	For all addresses in the outputs array:
+		If this != currentAddr,
+			If this not already in OutputNodes[],
+				Push to OutputNodes[addr].
+
+Traverse all 50 transactions:
+	For each input,
+		Determine this input's value ratio to all other inputs, as
+		percentage (some number <1). Save as r.
+		For each output,
+			Push to Links: [input addr, output addr, r*output value]
+
+Create new array Nodes[addr].
+Nodes[0] = currentAddr.
+Push InputNodes[] to Nodes[].
+Push OutputNodes[] to Nodes[].
+
+Compare InputNodes[i] to OutputNodes[i]. If there's a match, append a character to the OutputNodes[i] address or something.
+
+NOTES:
+	When comparing addresses, keep in mind that you're changing 
+	During that initial traversal, you never add currentAddr to Inputs[] or Outputs[] because it should only exist once in the final array Nodes[].
+	We create two separate arrays for Inputs[] and Outputs[] because we don't need repeats within the two. If there is an Input address also present in Outputs, we'll just change the Output's address name. (See below for how to make a random string.)
+	There is an optional final step for traversing Links[] and changing each source and target to its index within Nodes[] rather than its full address name.
+
