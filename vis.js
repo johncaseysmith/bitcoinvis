@@ -2,6 +2,7 @@
 // Original base code can be found at
 // https://github.com/johncaseysmith/bitcoinvis/commit/ddc6371850898e58a24f9e954696c46c5e51ad08#diff-fd491768bbe8b2f208d6e5d82758228a
 // beginning at line 13
+// it and sankey.js came from http://bost.ocks.org/mike/sankey/
 
 // getting the current address from the doc title
 var docTitle = document.title;
