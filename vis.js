@@ -1,55 +1,9 @@
-<!DOCTYPE html>
-<html class="ocks-org do-not-copy">
-<head>
-	<meta charset="utf-8">
-	<title>Bitcoin Transactions</title>
-
-	<style>
-
-		#chart {
-		  height: 100%;
-		}
-
-		.node rect {
-		  cursor: move;
-		  fill-opacity: .9;
-		  shape-rendering: crispEdges;
-		}
-
-		.node text {
-		  pointer-events: none;
-		  text-shadow: 0 1px 0 #fff;
-		}
-
-		.link {
-		  fill: none;
-		  stroke: #000;
-		  stroke-opacity: .3;
-		}
-
-		.link:hover {
-		  stroke-opacity: .5;
-		}
-	</style>
-</head>
-<body>
-
-<h1>Bitcoin Transactions</h1>
-
-<p>Each node represents an address. They are labeled with the last six digits of the address. The lines represent transactions between nodes. Nodes on the left are sending bitcoins to nodes on the right.
-
-<p id="chart"></p>
-
-<script src="http://d3js.org/d3.v2.min.js?2.9.1"></script>
-<script src="sankey.js"></script>
-<script>
-
 var margin = {top: 1, right: 1, bottom: 6, left: 1},
     width = 1280 - margin.left - margin.right,
     height = 720 - margin.top - margin.bottom;
 
 var formatNumber = d3.format(",.0f"),
-    format = function(d) { return "Transaction ammount: $" + formatNumber(d); },
+    format = function(d) { return "Transaction amount: $" + formatNumber(d); },
     color = d3.scale.category20();
 
 var svg = d3.select("#chart").append("svg")
@@ -119,7 +73,7 @@ d3.json("energy.json", function(energy) {
       .attr("text-anchor", "end")
       .attr("transform", null)
       .text(function(d) { return d.name; })
-    .filter(function(d) { return d.x < width / 2; })
+	.filter(function(d) { return (d.x < width / 2); })
       .attr("x", 6 + sankey.nodeWidth())
       .attr("text-anchor", "start");
 
@@ -129,8 +83,3 @@ d3.json("energy.json", function(energy) {
     link.attr("d", path);
   }
 });
-
-</script>
-
-</body>
-</html>
