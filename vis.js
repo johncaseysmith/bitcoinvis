@@ -59,8 +59,6 @@ d3.json("energy.json", function(energy) {
 	    d3.event.sourceEvent.stopPropagation();
 		this.parentNode.appendChild(this); })
       .on("drag", dragmove));
-	  
-  node.on("click", openNewAddress);
 
   node.append("rect")
       .attr("height", function(d) { return d.dy; })
@@ -87,9 +85,8 @@ d3.json("energy.json", function(energy) {
     link.attr("d", path);
   }
   
-  function openNewAddress(d) {
-    console.log("open new address");
-	d3.selectAll(".node").attr
-	d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
-  }
+  d3.selectAll('.node').on("click", function(d) {
+    var clickedNode = this;
+    console.log(clickedNode.name);
+  })
 });
