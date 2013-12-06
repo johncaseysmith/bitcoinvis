@@ -1,9 +1,26 @@
-{
-	"hash160":"ccdcc14ac3af265b58c0279a6f03eb4876624c45",
-	"address":"1KgDJTrSuBqwUzQyYmQym9zLiSmrY8tY8d",
-	"n_tx":2,
-	"total_received":12139508000,
-	"total_sent":12139508000,
-	"final_balance":0,
-	"txs":[{"result":0,"block_height":234381,"time":1367613662,"inputs":[{"prev_out":{"n":1,"value":399500000,"addr":"1Kr7i9CSoyEdUFBETq4qCFJHKGdfJT3Jcy","tx_index":68506646,"type":0}},{"prev_out":{"n":0,"value":440000000,"addr":"1BVpqLkhkeJfvvCMiGxkoqRHoUtvXwAHd5","tx_index":69903724,"type":0}},{"prev_out":{"n":102,"value":2400,"addr":"1JFjHZm5by8i4JuxSaAKZwXJkb5GbWHr6p","tx_index":69228320,"type":0}},{"prev_out":{"n":0,"value":12139508000,"addr":"1KgDJTrSuBqwUzQyYmQym9zLiSmrY8tY8d","tx_index":69717413,"type":0}}],"vout_sz":2,"relayed_by":"5.9.24.81","hash":"8496a7685d79b07b342a1ef63acb6bef0ac7fc09cc514937e200dd39bdb5ac48","vin_sz":4,"tx_index":69968879,"ver":1,"out":[{"n":0,"value":11233960400,"addr":"1PKdQyDb6CWnE6HLxigSZZpPXC81cm6GNt","tx_index":69968879,"type":0},{"n":1,"value":1745000000,"addr":"1HzzGjqcKbXBj2tjdzCEe4G1LxdQ4sixpR","tx_index":69968879,"type":0}],"size":796},{"result":-12139508000,"block_height":234222,"time":1367517301,"inputs":[{"prev_out":{"n":0,"value":12157400000,"addr":"1F4A6WwD89RGVnBtPZBMmxM7ENHUkk4gSA","tx_index":69698028,"type":0}}],"vout_sz":2,"relayed_by":"176.28.8.15","hash":"110373c48924e0e4703fac414a2e221ceb081601264b2ce3ffee6b273fd1b062","vin_sz":1,"tx_index":69717413,"ver":1,"out":[{"n":0,"value":12139508000,"addr":"1KgDJTrSuBqwUzQyYmQym9zLiSmrY8tY8d","tx_index":69717413,"type":0},{"n":1,"value":17842000,"addr":"1ApLuYPERHBrStaSrhTtetXJx2ghNS7VXw","tx_index":69717413,"type":0}],"size":259}]
-}
+{"nodes":[
+{"name":"tY8d"},
+{"name":"AHd5"},
+{"name":"3Jcy"},
+{"name":"Hr6p"},
+{"name":"6GNt"},
+{"name":"ixpR"},
+{"name":"4gSA"},
+{"name":"7VXw"}
+
+
+],
+
+"links":[
+{"source":0,"target":4,"value":105073.30524019242},
+{"source":0,"target":5,"value":16321.30710057833},
+{"source":1,"target":4,"value":3808.412524270726},
+{"source":1,"target":5,"value":591.5705252844239},
+{"source":2,"target":4,"value":3457.8654623776247},
+{"source":2,"target":5,"value":537.1191473889257},
+{"source":3,"target":4,"value":0.020773159223294868},
+{"source":3,"target":5,"value":0.0032267483197332206},
+
+{"source":6,"target":0,"value":121395.08},
+{"source":6,"target":7,"value":178.42}
+]}

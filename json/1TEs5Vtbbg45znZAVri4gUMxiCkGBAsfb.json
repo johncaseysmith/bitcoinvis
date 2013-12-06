@@ -1,9 +1,12 @@
-{
-	"hash160":"04f663396f50a48f241f1ac9b847f962d04e464b",
-	"address":"1TEs5Vtbbg45znZAVri4gUMxiCkGBAsfb",
-	"n_tx":1,
-	"total_received":1000000000,
-	"total_sent":0,
-	"final_balance":1000000000,
-	"txs":[{"result":0,"block_height":272965,"time":1386131006,"inputs":[{"prev_out":{"n":1,"value":1339530,"addr":"15r5gQf19VBL2A5Lhw4cNiUWid5EqiJ6HZ","tx_index":100825277,"type":0}},{"prev_out":{"n":0,"value":1000000000,"addr":"13eDZ8C1PkWAaLuYdnw4zNYgwH7bguyjMk","tx_index":100832856,"type":0}}],"vout_sz":2,"relayed_by":"127.0.0.1","hash":"8910cc1b7b5e320e38cc9f528efe59ffe79ddec9b113f701cfde0a42675a8220","vin_sz":2,"tx_index":100832857,"ver":1,"out":[{"n":0,"value":1000000000,"addr":"1TEs5Vtbbg45znZAVri4gUMxiCkGBAsfb","tx_index":100832857,"type":0},{"n":1,"value":1319530,"addr":"1MXpmx88fAUgjU8UqBfwjPZ8yG7NL4ezPs","tx_index":100832857,"type":0}],"size":437}]
-}
+{"nodes":[
+{"name":"yjMk"},
+{"name":"J6HZ"},
+{"name":"Asfb"},
+{"name":"ezPs"}],
+
+"links":[
+{"source":0,"target":2,"value":9986.622619402631},
+{"source":0,"target":3,"value":13.177648144980354},
+{"source":1,"target":2,"value":13.377380597368408},
+{"source":1,"target":3,"value":0.017651855019645533}
+]}
